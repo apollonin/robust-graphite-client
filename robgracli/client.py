@@ -1,4 +1,4 @@
-from urlparse import urljoin
+from urllib.parse import urljoin
 from collections import OrderedDict
 
 from .http import HttpClient
@@ -113,6 +113,6 @@ class GraphiteClient(HttpClient):
 def trim_datapoints(datapoints, max_age):
     if len(datapoints):
         last_ts = datapoints[-1][1]
-        return filter(lambda (_, ts): last_ts - ts <= max_age, datapoints)
+        return filter(lambda x: last_ts - x[1] <= max_age, datapoints)
     else:
         return []
